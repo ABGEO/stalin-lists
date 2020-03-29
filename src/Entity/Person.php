@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,17 +17,6 @@ class Person
      * @ORM\Column(type="integer")
      */
     private $id;
-
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $listCode;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $listDate;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -60,22 +51,7 @@ class Person
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $maritalStatus;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $dwellingPlace;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $nationality;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $socialStatus;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Education")
@@ -113,34 +89,14 @@ class Person
     private $investigator;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $convict;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $sessionDate;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $presenter;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $sessionParticipants = [];
-
-    /**
      * @ORM\Column(type="string", length=512, nullable=true)
      */
     private $blame;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $clauses = [];
 
     /**
      * @ORM\Column(type="string", length=512, nullable=true)
@@ -167,33 +123,57 @@ class Person
      */
     private $rankInPast;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\DataList")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $list;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SocialStatus")
+     */
+    private $socialStatus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Nationality")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $nationality;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\MaritalStatus")
+     */
+    private $maritalStatus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ConvictOrganization")
+     */
+    private $convict;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CourtRepresentative")
+     */
+    private $presenter;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CourtRepresentative")
+     */
+    private $sessionParticipants;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Clause")
+     */
+    private $clauses;
+
+    public function __construct()
+    {
+        $this->sessionParticipants = new ArrayCollection();
+        $this->clauses = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getListCode(): ?int
-    {
-        return $this->listCode;
-    }
-
-    public function setListCode(int $listCode): self
-    {
-        $this->listCode = $listCode;
-
-        return $this;
-    }
-
-    public function getListDate(): ?\DateTimeInterface
-    {
-        return $this->listDate;
-    }
-
-    public function setListDate(\DateTimeInterface $listDate): self
-    {
-        $this->listDate = $listDate;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -268,18 +248,6 @@ class Person
         return $this;
     }
 
-    public function getMaritalStatus(): ?string
-    {
-        return $this->maritalStatus;
-    }
-
-    public function setMaritalStatus(?string $maritalStatus): self
-    {
-        $this->maritalStatus = $maritalStatus;
-
-        return $this;
-    }
-
     public function getDwellingPlace(): ?string
     {
         return $this->dwellingPlace;
@@ -288,30 +256,6 @@ class Person
     public function setDwellingPlace(?string $dwellingPlace): self
     {
         $this->dwellingPlace = $dwellingPlace;
-
-        return $this;
-    }
-
-    public function getNationality(): ?string
-    {
-        return $this->nationality;
-    }
-
-    public function setNationality(?string $nationality): self
-    {
-        $this->nationality = $nationality;
-
-        return $this;
-    }
-
-    public function getSocialStatus(): ?string
-    {
-        return $this->socialStatus;
-    }
-
-    public function setSocialStatus(?string $socialStatus): self
-    {
-        $this->socialStatus = $socialStatus;
 
         return $this;
     }
@@ -400,18 +344,6 @@ class Person
         return $this;
     }
 
-    public function getConvict(): ?string
-    {
-        return $this->convict;
-    }
-
-    public function setConvict(?string $convict): self
-    {
-        $this->convict = $convict;
-
-        return $this;
-    }
-
     public function getSessionDate(): ?\DateTimeInterface
     {
         return $this->sessionDate;
@@ -424,30 +356,6 @@ class Person
         return $this;
     }
 
-    public function getPresenter(): ?string
-    {
-        return $this->presenter;
-    }
-
-    public function setPresenter(?string $presenter): self
-    {
-        $this->presenter = $presenter;
-
-        return $this;
-    }
-
-    public function getSessionParticipants(): ?array
-    {
-        return $this->sessionParticipants;
-    }
-
-    public function setSessionParticipants(array $sessionParticipants): self
-    {
-        $this->sessionParticipants = $sessionParticipants;
-
-        return $this;
-    }
-
     public function getBlame(): ?string
     {
         return $this->blame;
@@ -456,18 +364,6 @@ class Person
     public function setBlame(?string $blame): self
     {
         $this->blame = $blame;
-
-        return $this;
-    }
-
-    public function getClauses(): ?array
-    {
-        return $this->clauses;
-    }
-
-    public function setClauses(array $clauses): self
-    {
-        $this->clauses = $clauses;
 
         return $this;
     }
@@ -528,6 +424,112 @@ class Person
     public function setRankInPast(?string $rankInPast): self
     {
         $this->rankInPast = $rankInPast;
+
+        return $this;
+    }
+
+    public function getList(): ?DataList
+    {
+        return $this->list;
+    }
+
+    public function setList(?DataList $list): self
+    {
+        $this->list = $list;
+
+        return $this;
+    }
+
+    public function getSocialStatus(): ?SocialStatus
+    {
+        return $this->socialStatus;
+    }
+
+    public function setSocialStatus(?SocialStatus $socialStatus): self
+    {
+        $this->socialStatus = $socialStatus;
+
+        return $this;
+    }
+
+    public function getNationality(): ?Nationality
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?Nationality $nationality): self
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getMaritalStatus(): ?MaritalStatus
+    {
+        return $this->maritalStatus;
+    }
+
+    public function setMaritalStatus(?MaritalStatus $maritalStatus): self
+    {
+        $this->maritalStatus = $maritalStatus;
+
+        return $this;
+    }
+
+    public function getConvict(): ?ConvictOrganization
+    {
+        return $this->convict;
+    }
+
+    public function setConvict(?ConvictOrganization $convict): self
+    {
+        $this->convict = $convict;
+
+        return $this;
+    }
+
+    public function getPresenter(): ?CourtRepresentative
+    {
+        return $this->presenter;
+    }
+
+    public function setPresenter(?CourtRepresentative $presenter): self
+    {
+        $this->presenter = $presenter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CourtRepresentative[]
+     */
+    public function getSessionParticipants(): Collection
+    {
+        return $this->sessionParticipants;
+    }
+
+    public function addSessionParticipant(CourtRepresentative $sessionParticipant): self
+    {
+        if (!$this->sessionParticipants->contains($sessionParticipant)) {
+            $this->sessionParticipants[] = $sessionParticipant;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Clause[]
+     */
+    public function getClauses(): Collection
+    {
+        return $this->clauses;
+    }
+
+    public function addClause(Clause $clause): self
+    {
+        if (!$this->clauses->contains($clause)) {
+            $this->clauses[] = $clause;
+        }
 
         return $this;
     }

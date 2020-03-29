@@ -1,0 +1,15 @@
+INSERT INTO `convict_organization` VALUES (1,'შინსახკომის სამეული');
+INSERT INTO `convict_organization` VALUES (2,'სამხედრო კოლეგია');
+INSERT INTO `convict_organization` VALUES (3,'სსრკ-ს უზენაესი სასამართლოს სამხედრო კოლეგიის გამსვლელი სესია');
+INSERT INTO `convict_organization` VALUES (4,'აჭარის ასსრ-ის უმაღლესი სასამართლოს საგანგებო სხდომა');
+INSERT INTO `convict_organization` VALUES (5,'სამხედრო კოლეგია ბაქოში');
+INSERT INTO `convict_organization` VALUES (6,'შინსახკომთან არსებული განსაკუთრებული სათათბირო');
+INSERT INTO `convict_organization` VALUES (7,'ამიერკავკასიის სამხედრო ოლქის სამხედრო ტრიბუნალი');
+INSERT INTO `convict_organization` VALUES (8,'საქართველოს სსრ-ის შინსახკომის სახელმწიფო უშიშროების სამმართველო');
+INSERT INTO `convict_organization` VALUES (9,'საქართველოს სსრ-ის შინსახკომის შინაგანი ძალების სასაზღვრო სამხედრო ტრიბუნალი');
+INSERT INTO `convict_organization` VALUES (10,'საქართველოს სსრ-ის უმაღლესი სასამართლოს სპეციალური სესია');
+INSERT INTO `convict_organization` VALUES (11,'საქართველოს სსრ-ის უმაღლესი სასამართლოს სისხლის სამართლის საქმეთა კოლეგია');
+INSERT INTO `convict_organization` VALUES (12,'საქართველოს სსრ-ის შინსახკომის სამეული');
+INSERT INTO `convict_organization` VALUES (13,'აჭარის ასსრ-ის უმაღლესი სასამართლო');
+INSERT INTO `convict_organization` VALUES (14,'შინსახკომის სასამართლო სხდომა');
+INSERT INTO `convict_organization` VALUES (15,'სასაზღვრო ჯარების სამხედრო ტრიბუნალი');

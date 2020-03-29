@@ -1,0 +1,12 @@
+INSERT INTO `data_list` VALUES (1,'1938-01-03');
+INSERT INTO `data_list` VALUES (2,'1938-06-10');
+INSERT INTO `data_list` VALUES (3,'1937-07-10');
+INSERT INTO `data_list` VALUES (4,'1937-08-10');
+INSERT INTO `data_list` VALUES (5,'1938-09-12');
+INSERT INTO `data_list` VALUES (6,'1938-02-14');
+INSERT INTO `data_list` VALUES (7,'1937-09-15');
+INSERT INTO `data_list` VALUES (8,'1938-04-19');
+INSERT INTO `data_list` VALUES (9,'1937-10-21');
+INSERT INTO `data_list` VALUES (10,'1937-11-22');
+INSERT INTO `data_list` VALUES (11,'1937-06-26');
+INSERT INTO `data_list` VALUES (12,'1937-05-31');
