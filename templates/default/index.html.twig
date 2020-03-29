@@ -4,10 +4,25 @@
 
 {% block body %}
     <div class="main main-raised">
-        <div class="section section-basic">
+        <div class="section">
             <div class="container">
                 <div class="title">
-                    <h2>Hello, World!</h2>
+                    <h2>შემთხვევითი ბრალდება</h2>
+                </div>
+
+                <div class="row">
+                    <div class="tim-typo">
+                        <p><span class="tim-note">ბრალდება</span>{{ randomBlame.blame }}</p>
+                    </div>
+
+                    <div class="tim-typo">
+                        <span class="tim-note">განაჩენი</span>
+                        <p class="text-danger">{{ randomBlame.verdict }}</p>
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <a class="btn btn-primary" href="#">სრული დოსიეს ნახვა</a>
+                    </div>
                 </div>
             </div>
         </div>

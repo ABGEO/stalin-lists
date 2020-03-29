@@ -19,6 +19,28 @@ class PersonRepository extends ServiceEntityRepository
         parent::__construct($registry, Person::class);
     }
 
+    /**
+     * Get random blame end verdict.
+     *
+     * @return String[] Returns an array with random blame and verdict.
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getRandomBlame()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.blame', 'p.verdict')
+            ->andWhere('p.blame IS NOT NULL')
+            ->andWhere('LENGTH(p.blame) BETWEEN 128 and 512')
+            ->andWhere('p.verdict IS NOT NULL')
+            ->andWhere('p.verdict != \'\'')
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     // /**
     //  * @return Person[] Returns an array of Person objects
     //  */
