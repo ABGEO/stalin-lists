@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Person|null find($id, $lockMode = null, $lockVersion = null)
@@ -39,6 +40,19 @@ class PersonRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * Get query builder.
+     *
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->addOrderBy('p.surname', 'ASC')
+            ->addOrderBy('p.name', 'ASC')
+            ->addOrderBy('p.patronymic', 'ASC');
     }
 
     // /**

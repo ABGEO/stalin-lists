@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}რეპრესირებულთა სია{% endblock %}
+
+{% block body %}
+    <div class="main main-raised">
+        <div class="section">
+            <div class="container">
+                <div class="title">
+                    <h2><b>1937-1938</b> წლებში რეპრესირებულთა სია</h2>
+                </div>
+
+                <div class="table-responsive ">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">გვარი</th>
+                            <th scope="col">სახელი</th>
+                            <th scope="col">მამის სახ.</th>
+                            <th scope="col">დაბადების თარ.</th>
+                            <th scope="col">ეროვნება</th>
+                            <th scope="col">დაპატიმრების თარ.</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for person in people -%}
+                            <tr>
+                                <td>{{ person.surname }}</td>
+                                <td>{{ person.name }}</td>
+                                <td>{{ person.patronymic }}</td>
+                                <td>{{ person.birthDate|default('არ არის მითითებული') }}</td>
+                                <td>{{ person.nationality }}</td>
+                                <td>{{ person.dateOfArrest|date('d/m/Y') }}</td>
+                                <td><a href="#">დოსიე</a></td>
+                            </tr>
+                        {% endfor -%}
+                        </tbody>
+                    </table>
+                </div>
+
+                {{ knp_pagination_render(people, null, {}, {'align': 'center'}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
