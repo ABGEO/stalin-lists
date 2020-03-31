@@ -48,10 +48,9 @@ class PersonRepository extends ServiceEntityRepository
      * Get query builder.
      *
      * @param array $filter
-     * @param array $order
      * @return QueryBuilder
      */
-    public function getQueryBuilderForList(array $filter = [], array $order = []): QueryBuilder
+    public function getQueryBuilderForList(array $filter = []): QueryBuilder
     {
         $filterTypes = [
             'surname' => [
@@ -184,12 +183,6 @@ class PersonRepository extends ServiceEntityRepository
                     $qb->setParameter($field, $value);
                 }
             }
-        }
-
-        if (empty($order)) {
-            $qb->addOrderBy('p.surname', 'ASC')
-                ->addOrderBy('p.name', 'ASC')
-                ->addOrderBy('p.patronymic', 'ASC');
         }
 
         return $qb;

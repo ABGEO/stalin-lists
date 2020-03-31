@@ -36,7 +36,11 @@ class DefaultController extends AbstractController
         $people = $paginator->paginate(
             $personRepository->getQueryBuilderForList($request->get('person_search_form') ?? []),
             $page,
-            100
+            100,
+            [
+                'defaultSortFieldName' => ['p.surname', 'p.name', 'p.patronymic'],
+                'defaultSortDirection' => 'asc',
+            ]
         );
 
         $searchForm = $this->createForm(PersonSearchFormType::class);

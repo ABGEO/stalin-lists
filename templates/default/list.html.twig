@@ -106,13 +106,27 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">გვარი</th>
-                                <th scope="col">სახელი</th>
-                                <th scope="col">მამის სახ.</th>
-                                <th scope="col">დაბადების თარ.</th>
+                                <th scope="col">
+                                    {{ knp_pagination_sortable(people, 'გვარი', 'p.surname') }}
+                                    <i class="fa fa-fw fa-sort{{ people.isSorted('p.surname') ? '-' ~ people.getDirection : '' }}"></i>
+                                </th>
+                                <th scope="col">
+                                    {{ knp_pagination_sortable(people, 'სახელი', 'p.name') }}
+                                    <i class="fa fa-fw fa-sort{{ people.isSorted('p.name') ? '-' ~ people.getDirection : '' }}"></i>
+                                </th>
+                                <th scope="col">
+                                    {{ knp_pagination_sortable(people, 'მამის სახ.', 'p.patronymic') }}
+                                    <i class="fa fa-fw fa-sort{{ people.isSorted('p.patronymic') ? '-' ~ people.getDirection : '' }}"></i>
+                                </th>
+                                <th scope="col">
+                                    {{ knp_pagination_sortable(people, 'დაბადების თარ.', 'p.birthDate') }}
+                                    <i class="fa fa-fw fa-sort{{ people.isSorted('p.birthDate') ? '-' ~ people.getDirection : '' }}"></i>
+                                </th>
                                 <th scope="col">ეროვნება</th>
-                                <th scope="col">დაპატიმრების თარ.</th>
-                                <th scope="col"></th>
+                                <th scope="col">
+                                    {{ knp_pagination_sortable(people, 'დაპატიმრების თარ.', 'p.dateOfArrest') }}
+                                    <i class="fa fa-fw fa-sort{{ people.isSorted('p.dateOfArrest') ? '-' ~ people.getDirection : '' }}"></i>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
