@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Inflector\Inflector;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -45,14 +47,152 @@ class PersonRepository extends ServiceEntityRepository
     /**
      * Get query builder.
      *
+     * @param array $filter
+     * @param array $order
      * @return QueryBuilder
      */
-    public function getQueryBuilder(): QueryBuilder
+    public function getQueryBuilderForList(array $filter = [], array $order = []): QueryBuilder
     {
-        return $this->createQueryBuilder('p')
-            ->addOrderBy('p.surname', 'ASC')
-            ->addOrderBy('p.name', 'ASC')
-            ->addOrderBy('p.patronymic', 'ASC');
+        $filterTypes = [
+            'surname' => [
+                'type' => 'like',
+            ],
+            'name' => [
+                'type' => 'like',
+            ],
+            'patronymic' => [
+                'type' => 'like',
+            ],
+            'birth_date' => [
+                'type' => 'like',
+            ],
+            'place_of_birth' => [
+                'type' => 'like',
+            ],
+            'dwelling_place' => [
+                'type' => 'like',
+            ],
+            'education' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'education_additional' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'nationality' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'social_status' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'marital_status' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'partying' => [
+                'type' => 'like',
+            ],
+            'working_position' => [
+                'type' => 'like',
+            ],
+            'conviction' => [
+                'type' => 'like',
+            ],
+            'rank_in_past' => [
+                'type' => 'like',
+            ],
+            'list' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'blame' => [
+                'type' => 'like',
+            ],
+            'clauses' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'date_of_arrest' => [
+                'type' => 'date',
+            ],
+            'investigator' => [
+                'type' => 'like',
+            ],
+            'session_date' => [
+                'type' => 'date',
+            ],
+            'presenter' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'verdict' => [
+                'type' => 'like',
+            ],
+            'verdict_date' => [
+                'type' => 'date',
+            ],
+            'convict' => [
+                'type' => 'relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+            'rehabilitation' => [
+                'type' => 'like',
+            ],
+            'notes' => [
+                'type' => 'like',
+            ],
+            'session_participants' => [
+                'type' => 'multiple_relation',
+                'condition' => Join::ON,
+                'field' => 'id',
+            ],
+        ];
+
+        $qb = $this->createQueryBuilder('p');
+
+        foreach ($filter as $field => $value) {
+            if (array_key_exists($field, $filterTypes) && !empty($value)) {
+                $type = $filterTypes[$field];
+
+                if ('like' === $type['type']) {
+                    $qb->andWhere('p.'.Inflector::camelize($field).' like :'.$field);
+                    $qb->setParameter($field, '%'.$value.'%');
+                } elseif ('relation' === $type['type'] || 'multiple_relation' === $type['type']) {
+                    $qb->join('p.'.Inflector::camelize($field), $field, $type['condition']);
+
+                    if ('relation' === $type['type']) {
+                        $qb->andWhere($field.'.'.$type['field'].' = :'.$field);
+                    } elseif ('multiple_relation' === $type['type']) {
+                        $qb->andWhere($field.'.'.$type['field'].' in (:'.$field.')');
+                    }
+
+                    $qb->setParameter($field, $value);
+                } elseif ('date' === $type['type']) {
+                    $qb->andWhere('p.'.Inflector::camelize($field).' = STR_TO_DATE(:'.$field.', \'%d/%m/%Y\')');
+                    $qb->setParameter($field, $value);
+                }
+            }
+        }
+
+        if (empty($order)) {
+            $qb->addOrderBy('p.surname', 'ASC')
+                ->addOrderBy('p.name', 'ASC')
+                ->addOrderBy('p.patronymic', 'ASC');
+        }
+
+        return $qb;
     }
 
     // /**

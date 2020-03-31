@@ -10,37 +10,153 @@
                     <h2><b>1937-1938</b> წლებში რეპრესირებულთა სია</h2>
                 </div>
 
-                <div class="table-responsive ">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">გვარი</th>
-                            <th scope="col">სახელი</th>
-                            <th scope="col">მამის სახ.</th>
-                            <th scope="col">დაბადების თარ.</th>
-                            <th scope="col">ეროვნება</th>
-                            <th scope="col">დაპატიმრების თარ.</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for person in people -%}
-                            <tr>
-                                <td>{{ person.surname }}</td>
-                                <td>{{ person.name }}</td>
-                                <td>{{ person.patronymic }}</td>
-                                <td>{{ person.birthDate|default('არ არის მითითებული') }}</td>
-                                <td>{{ person.nationality }}</td>
-                                <td>{{ person.dateOfArrest|date('d/m/Y') }}</td>
-                                <td><a href="#">დოსიე</a></td>
-                            </tr>
-                        {% endfor -%}
-                        </tbody>
-                    </table>
+                {% set formData = app.request.get('person_search_form') %}
+                {% set isFiltered = formData ?? []|filter((v, k) => k not in ['search', '_token'] and v is not empty) is not empty %}
+
+                <button class="btn btn-btn-round" type="button" data-toggle="collapse" data-target="#search-collapse"
+                        aria-expanded="false" aria-controls="search-collapse">
+                    <i class="material-icons">search</i>  რეპრესირებულის ძიება
+                </button>
+
+                <div class="collapse{{ isFiltered ? ' show' : '' }}" id="search-collapse">
+                    <div class="card card-body">
+                        {{ form_start(searchForm, {'method': 'GET'}) }}
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>პირადი მონაცემები</h4>
+                                <div class="input-group mb-3">
+                                    {{ _self.input(searchForm.surname) }}
+                                    {{ _self.input(searchForm.name) }}
+                                    {{ _self.input(searchForm.patronymic) }}
+                                    {{ _self.input(searchForm.birth_date) }}
+                                    {{ _self.input(searchForm.place_of_birth) }}
+                                    {{ _self.input(searchForm.dwelling_place) }}
+                                    {{ _self.input(searchForm.education) }}
+                                    {{ _self.input(searchForm.education_additional) }}
+                                    {{ _self.input(searchForm.nationality) }}
+                                    {{ _self.input(searchForm.social_status) }}
+                                    {{ _self.input(searchForm.marital_status) }}
+                                    {{ _self.input(searchForm.partying) }}
+                                    {{ _self.input(searchForm.working_position) }}
+                                    {{ _self.input(searchForm.conviction) }}
+                                    {{ _self.input(searchForm.rank_in_past) }}
+                                </div>
+
+                                <h4>დაპატიმრება</h4>
+                                <div class="input-group mb-3">
+                                    {{ _self.input(searchForm.list) }}
+                                    {{ _self.input(searchForm.blame) }}
+                                    {{ _self.input(searchForm.clauses) }}
+                                    {{ _self.input(searchForm.date_of_arrest) }}
+                                    {{ _self.input(searchForm.investigator) }}
+                                </div>
+
+                                <h4>გასამართლება</h4>
+                                <div class="input-group mb-3">
+                                    {{ _self.input(searchForm.session_date) }}
+                                    {{ _self.input(searchForm.presenter) }}
+                                    {{ _self.input(searchForm.session_participants) }}
+                                    {{ _self.input(searchForm.verdict) }}
+                                    {{ _self.input(searchForm.verdict_date) }}
+                                    {{ _self.input(searchForm.convict) }}
+                                </div>
+
+                                <h4>სხვა მონაცემები</h4>
+                                <div class="input-group mb-3">
+                                    {{ _self.input(searchForm.rehabilitation) }}
+                                    {{ _self.input(searchForm.notes) }}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="form-group mt-3">
+                                            {{ form_widget(searchForm.search) }}
+                                        </div>
+                                    </div>
+
+                                    {% if isFiltered -%}
+                                        <div class="col-lg-2">
+                                            <div class="form-group mt-3">
+                                                <a href="{{ path('list') }}" class="btn btn-danger btn-block btn-flat">გასუფთავება</a>
+                                            </div>
+                                        </div>
+                                    {% endif -%}
+                                </div>
+                            </div>
+                        </div>
+
+                        {{ form_end(searchForm) }}
+                    </div>
                 </div>
+
+                {% if isFiltered -%}
+                    {% if people.getTotalItemCount -%}
+                        <p>ნაპოვნია თქვენი მოთხოვნის შესაფერისი <b>{{ people.getTotalItemCount }}</b> რეპრესირებული.</p>
+                    {% else -%}
+                        <div class="text-center">
+                            <h4><b>თქვენი მოთხოვნის შესაფერისი ვერც ერთი რეპრესირებული ვერ მოიძებნა.</b></h4>
+                        </div>
+                    {% endif -%}
+                {% endif -%}
+
+                {% if people.getTotalItemCount -%}
+                    <div class="table-responsive ">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">გვარი</th>
+                                <th scope="col">სახელი</th>
+                                <th scope="col">მამის სახ.</th>
+                                <th scope="col">დაბადების თარ.</th>
+                                <th scope="col">ეროვნება</th>
+                                <th scope="col">დაპატიმრების თარ.</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for person in people -%}
+                                <tr>
+                                    <td>{{ person.surname }}</td>
+                                    <td>{{ person.name }}</td>
+                                    <td>{{ person.patronymic }}</td>
+                                    <td>{{ person.birthDate|default('არ არის მითითებული') }}</td>
+                                    <td>{{ person.nationality }}</td>
+                                    <td>{{ person.dateOfArrest ? person.dateOfArrest|date('d/m/Y') : 'არ არის მითითებული' }}</td>
+                                    <td><a href="#">დოსიე</a></td>
+                                </tr>
+                            {% endfor -%}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif -%}
 
                 {{ knp_pagination_render(people, null, {}, {'align': 'center'}) }}
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts -%}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/plugins/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            materialKit.initFormExtendedDatetimepickers('DD/MM/YYYY');
+        });
+    </script>
+{% endblock -%}
+
+{% macro input(input, wrapper_classes = 'col-lg-3 col-sm-4') %}
+    <div class="{{ wrapper_classes }}">
+        <div class="form-group">
+            {{ form_label(input) }}
+            {{ form_widget(input) }}
+            {% if input.vars.help is defined -%}
+                <span class="bmd-help">{{ input.vars.help }}</span>
+            {% endif -%}
+        </div>
+    </div>
+{% endmacro %}

@@ -104,8 +104,9 @@ materialKit = {
     isWindow: document.documentMode || /Edge/.test(navigator.userAgent)
   },
 
-  initFormExtendedDatetimepickers: function() {
+  initFormExtendedDatetimepickers: function(format = 'DD/MM/YYYY HH:mm:ss') {
     $('.datetimepicker').datetimepicker({
+      format: format,
       icons: {
         time: "fa fa-clock-o",
         date: "fa fa-calendar",

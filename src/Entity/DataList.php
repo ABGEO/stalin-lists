@@ -37,4 +37,9 @@ class DataList
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return 'სია #' . $this->id . ' - ' . $this->date->format('d/m/Y');
+    }
 }
