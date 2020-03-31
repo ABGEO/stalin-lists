@@ -14,9 +14,12 @@ use App\Entity\SocialStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -433,6 +436,22 @@ class PersonSearchFormType extends AbstractType
                     ],
                 ]
             );
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        $sort = static function (ChoiceView $a, ChoiceView $b) {
+            return strcasecmp($a->label, $b->label);
+        };
+
+        usort($view->children['education']->vars['choices'], $sort);
+        usort($view->children['education_additional']->vars['choices'], $sort);
+        usort($view->children['social_status']->vars['choices'], $sort);
+        usort($view->children['nationality']->vars['choices'], $sort);
+        usort($view->children['marital_status']->vars['choices'], $sort);
+        usort($view->children['convict']->vars['choices'], $sort);
+        usort($view->children['presenter']->vars['choices'], $sort);
+        usort($view->children['clauses']->vars['choices'], $sort);
     }
 
     public function configureOptions(OptionsResolver $resolver)
