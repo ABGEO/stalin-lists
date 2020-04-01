@@ -7,26 +7,44 @@
         <div class="section">
             <div class="container">
                 <div class="title">
-                    <h2>შემთხვევითი ბრალდება</h2>
+                    <h2>
+                        შემთხვევითი ბრალდება
+                        <i class="material-icons random-blame-refresh" rel="tooltip"
+                           data-original-title="განახლება">refresh</i>
+                    </h2>
                 </div>
-
                 <div class="row">
-                    <div class="tim-typo">
-                        <p><span class="tim-note">ბრალდება</span>{{ randomBlame.blame }}</p>
-                    </div>
+                    <div class="col-12">
+                        <div class="random-blame-wrapper" hidden>
+                            <div class="tim-typo">
+                                <span class="tim-note">ბრალდება</span>
+                                <p class="text-dark random-blame-text">...</p>
+                            </div>
+                            <div class="tim-typo">
+                                <span class="tim-note">განაჩენი</span>
+                                <p class="text-danger random-blame-verdict">...</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <a class="btn btn-primary random-blame-dosie-link" href="#">სრული დოსიეს ნახვა</a>
+                            </div>
+                        </div>
 
-                    <div class="tim-typo">
-                        <span class="tim-note">განაჩენი</span>
-                        <p class="text-danger">{{ randomBlame.verdict }}</p>
-                    </div>
-
-                    <div class="col-12 text-center">
-                        <a class="btn btn-primary" href="{{ path('dosie', { 'id': randomBlame.id }) }}">
-                            სრული დოსიეს ნახვა
-                        </a>
+                        <div class="sk-chase random-blame-spinner">
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts -%}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+{% endblock -%}

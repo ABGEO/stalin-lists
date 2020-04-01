@@ -53,32 +53,38 @@
                                     <div class="tab-pane active" id="tab-personal-information">
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">დაბადების თარიღი</span>{{ person.birthDate|default('არ არის მითითებული') }}
+                                                <span class="tim-note">დაბადების თარიღი</span>
+                                                {{ person.birthDate|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">დაბადების ადგილი</span>{{ person.placeOfBirth|default('არ არის მითითებული') }}
+                                                <span class="tim-note">დაბადების ადგილი</span>
+                                                {{ person.placeOfBirth|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">ოჯახური მდგომარეობა</span>{{ person.maritalStatus|default('არ არის მითითებული') }}
+                                                <span class="tim-note">ოჯახური მდგომარეობა</span>
+                                                {{ person.maritalStatus|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">საცხოვრებელი ადგილი</span>{{ person.dwellingPlace|default('არ არის მითითებული') }}
+                                                <span class="tim-note">საცხოვრებელი ადგილი</span>
+                                                {{ person.dwellingPlace|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">ეროვნება</span>{{ person.nationality|default('არ არის მითითებული') }}
+                                                <span class="tim-note">ეროვნება</span>
+                                                {{ person.nationality|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">სოციალური მდგომარეობა</span>{{ person.socialStatus|default('არ არის მითითებული') }}
+                                                <span class="tim-note">სოციალური მდგომარეობა</span>
+                                                {{ person.socialStatus|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
@@ -89,22 +95,26 @@
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">პარტიულობა</span>{{ person.partying|default('არ არის მითითებული') }}
+                                                <span class="tim-note">პარტიულობა</span>
+                                                {{ person.partying|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">სამუშაო თანამდებობა</span>{{ person.workingPosition|default('არ არის მითითებული') }}
+                                                <span class="tim-note">სამუშაო თანამდებობა</span>
+                                                {{ person.workingPosition|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">ნასამართლეობა წარსულში</span>{{ person.conviction|default('არ არის მითითებული') }}
+                                                <span class="tim-note">ნასამართლეობა წარსულში</span>
+                                                {{ person.conviction|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">წოდება წარსულში</span>{{ person.rankInPast|default('არ არის მითითებული') }}
+                                                <span class="tim-note">წოდება წარსულში</span>
+                                                {{ person.rankInPast|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                     </div>
@@ -142,54 +152,64 @@
                                     <div class="tab-pane" id="tab-arrest">
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">ბრალდება</span>{{ person.blame|default('არ არის მითითებული') }}
+                                                <span class="tim-note">ბრალდება</span>
+                                                {{ person.blame|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">მუხლი</span>{{ person.clauses|join(', ')|default('არ არის მითითებული') }}
+                                                <span class="tim-note">მუხლი</span>
+                                                {{ person.clauses|join(', ')|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">დაპატიმრების თარიღი</span>{{ person.dateOfArrest ? person.dateOfArrest|date('d/m/Y') : 'არ არის მითითებული' }}
+                                                <span class="tim-note">დაპატიმრების თარიღი</span>
+                                                {{ person.dateOfArrest ? person.dateOfArrest|date('d/m/Y') : 'არ არის მითითებული' }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">ვინ იძიებდა საქმეს</span>{{ person.investigator|default('არ არის მითითებული') }}
+                                                <span class="tim-note">ვინ იძიებდა საქმეს</span>
+                                                {{ person.investigator|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="tab-convict">
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">სხდომის თარიღი</span>{{ person.sessionDate ? person.sessionDate|date('d/m/Y') : 'არ არის მითითებული' }}
+                                                <span class="tim-note">სხდომის თარიღი</span>
+                                                {{ person.sessionDate ? person.sessionDate|date('d/m/Y') : 'არ არის მითითებული' }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">სხდომის მომხსენებელი</span>{{ person.presenter|default('არ არის მითითებული') }}
+                                                <span class="tim-note">სხდომის მომხსენებელი</span>
+                                                {{ person.presenter|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">სხდომის მონაწილეები</span>{{ person.sessionParticipants|join(', ')|default('არ არის მითითებული') }}
+                                                <span class="tim-note">სხდომის მონაწილეები</span>
+                                                {{ person.sessionParticipants|join(', ')|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">განაჩენი</span>{{ person.verdict|default('არ არის მითითებული') }}
+                                                <span class="tim-note">განაჩენი</span>
+                                                {{ person.verdict|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">განაჩენის თარიღი</span>{{ person.verdictDate ? person.verdictDate|date('d/m/Y') : 'არ არის მითითებული' }}
+                                                <span class="tim-note">განაჩენის თარიღი</span>
+                                                {{ person.verdictDate ? person.verdictDate|date('d/m/Y') : 'არ არის მითითებული' }}
                                             </p>
                                         </div>
                                         <div class="tim-typo">
                                             <p>
-                                                <span class="tim-note">გასამართლების ორგანო</span>{{ person.convict|default('არ არის მითითებული') }}
+                                                <span class="tim-note">გასამართლების ორგანო</span>
+                                                {{ person.convict|default('არ არის მითითებული') }}
                                             </p>
                                         </div>
                                     </div>
@@ -197,12 +217,14 @@
                                         <div class="tab-pane" id="tab-other-information">
                                             <div class="tim-typo">
                                                 <p>
-                                                    <span class="tim-note">რეაბილიტაცია</span>{{ person.rehabilitation|default('არ არის მითითებული') }}
+                                                    <span class="tim-note">რეაბილიტაცია</span>
+                                                    {{ person.rehabilitation|default('არ არის მითითებული') }}
                                                 </p>
                                             </div>
                                             <div class="tim-typo">
                                                 <p>
-                                                    <span class="tim-note">შენიშვნა</span>{{ person.notes|default('არ არის მითითებული') }}
+                                                    <span class="tim-note">შენიშვნა</span>
+                                                    {{ person.notes|default('არ არის მითითებული') }}
                                                 </p>
                                             </div>
                                         </div>

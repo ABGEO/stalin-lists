@@ -16,11 +16,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(PersonRepository $personRepository)
+    public function index()
     {
-        $randomBlame = $personRepository->getRandomBlame();
-
-        return $this->render('default/index.html.twig', ['randomBlame' => $randomBlame]);
+        return $this->render('default/index.html.twig');
     }
 
     /**
