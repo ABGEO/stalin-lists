@@ -56,4 +56,12 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/dosie.html.twig', ['person' => $person]);
     }
+
+    /**
+     * @Route("/about", name="about")
+     */
+    public function about()
+    {
+        return $this->render('default/about.html.twig');
+    }
 }

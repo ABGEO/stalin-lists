@@ -18,7 +18,7 @@
     {% endblock -%}
 </head>
 
-<body class="index-page sidebar-collapse">
+<body class="{{ 'homepage' == currentRoute ? 'index-page' : 'profile-page' }} sidebar-collapse">
 <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100"
      id="sectionsNav">
     <div class="container">
@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ path('about') }}">
                         <i class="material-icons">info</i> ჩვენ შესახებ
                     </a>
                 </li>
@@ -63,31 +63,31 @@
 </nav>
 
 <div class="page-header header-filter" data-parallax="true"
-     style="background-image: url('{{ asset('assets/img/background.jpg') }}');">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 ml-auto mr-auto">
-                <div class="brand">
-                    <h1>სტალინის სიები</h1>
-                    <h3>
-                        <b>1937</b>-<b>1938</b> წლებში საქართველოს სსრ-ში სულ <b>29.051</b> ადამიანი იქნა რეპრესირებული,
-                        მათ შორის <b>14.372</b> დახვრეტილი, <b>14.679</b> - გადასახლებული.
-                    </h3>
-                    <h4>
-                        ჩვენს ბაზაში არის <b>1937</b>-<b>1938</b> წლებში ე.წ. <b>„სტალინური სიების“</b>
-                        საფუძველზე რეპრესირებულები - <b>3.616</b> პიროვნების მონაცემი.
-                    </h4>
-
-                    {% if 'list' != currentRoute -%}
+     style="background-image: url('{{ asset('homepage' == currentRoute ? 'assets/img/background.jpg' : 'assets/img/background2.jpg' ) }}');">
+    {% if 'homepage' == currentRoute -%}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="brand">
+                        <h1>სტალინის სიები</h1>
+                        <h3>
+                            <b>1937</b>-<b>1938</b> წლებში საქართველოს სსრ-ში სულ <b>29.051</b> ადამიანი იქნა
+                            რეპრესირებული,
+                            მათ შორის <b>14.372</b> დახვრეტილი, <b>14.679</b> - გადასახლებული.
+                        </h3>
+                        <h4>
+                            ჩვენს ბაზაში არის <b>1937</b>-<b>1938</b> წლებში ე.წ. <b>„სტალინური სიების“</b>
+                            საფუძველზე რეპრესირებულები - <b>3.616</b> პიროვნების მონაცემი.
+                        </h4>
                         <br>
                         <a href="{{ path('list') }}" class="btn btn-danger btn-raised btn-lg">
                             <i class="fa fa-list"></i> რეპრესირებულთა სრული სია
                         </a>
-                    {% endif -%}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif -%}
 </div>
 
 {% block body -%}{% endblock -%}
@@ -97,7 +97,7 @@
         <nav class="float-left">
             <ul>
                 <li>
-                    <a href="#">ჩვენ შესახებ</a>
+                    <a href="{{ path('about') }}">ჩვენ შესახებ</a>
                 </li>
                 <li>
                     <a href="#">უკუკავშირი</a>
