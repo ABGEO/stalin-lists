@@ -6,6 +6,7 @@ use App\Entity\Person;
 use App\Form\PersonSearchFormType;
 use App\Repository\PersonRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +20,7 @@ class DefaultController extends AbstractController
     {
         $randomBlame = $personRepository->getRandomBlame();
 
-        return $this->render(
-            'default/index.html.twig',
-            [
-                'randomBlame' => $randomBlame,
-            ]
-        );
+        return $this->render('default/index.html.twig', ['randomBlame' => $randomBlame]);
     }
 
     /**
@@ -54,4 +50,12 @@ class DefaultController extends AbstractController
         );
     }
 
+    /**
+     * @Route("/dosie/{id}", name="dosie")
+     * @ParamConverter("person", class="App\Entity\Person")
+     */
+    public function dosie(Person $person)
+    {
+        return $this->render('default/dosie.html.twig', ['person' => $person]);
+    }
 }

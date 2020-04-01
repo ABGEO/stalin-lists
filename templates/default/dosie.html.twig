@@ -1,0 +1,218 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ person.surname }} {{ person.name }} {{ person.patronymic }}{% endblock %}
+
+{% block body %}
+    <div class="main main-raised">
+        <div class="section">
+            <div class="container">
+                <div class="name text-center mb-5">
+                    <h3 class="title">{{ person.surname }} {{ person.name }} {{ person.patronymic }}</h3>
+                    <h5>{{ person.list }}</h5>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <ul class="nav nav-pills nav-pills-icons flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#tab-personal-information" role="tab"
+                                           data-toggle="tab">
+                                            <i class="material-icons">account_box</i> პირადი მონაცემები
+                                        </a>
+                                    </li>
+                                    {% if person.photos -%}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab-photos" role="tab" data-toggle="tab">
+                                                <i class="material-icons">collections</i> ფოტოები
+                                            </a>
+                                        </li>
+                                    {% endif -%}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tab-arrest" role="tab" data-toggle="tab">
+                                            <i class="material-icons">pause</i> დაპატიმრება
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tab-convict" role="tab" data-toggle="tab">
+                                            <i class="material-icons">gavel</i> გასამართლება
+                                        </a>
+                                    </li>
+                                    {% if person.rehabilitation or person.notes -%}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab-other-information" role="tab"
+                                               data-toggle="tab">
+                                                <i class="material-icons">library_books</i> სხვა მონაცემები
+                                            </a>
+                                        </li>
+                                    {% endif -%}
+                                </ul>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab-personal-information">
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">დაბადების თარიღი</span>{{ person.birthDate|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">დაბადების ადგილი</span>{{ person.placeOfBirth|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">ოჯახური მდგომარეობა</span>{{ person.maritalStatus|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">საცხოვრებელი ადგილი</span>{{ person.dwellingPlace|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">ეროვნება</span>{{ person.nationality|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">სოციალური მდგომარეობა</span>{{ person.socialStatus|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">განათლება</span>
+                                                {{ person.education|default('არ არის მითითებული') }}{{ person.educationAdditional ? '. ' ~ person.educationAdditional : '' }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">პარტიულობა</span>{{ person.partying|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">სამუშაო თანამდებობა</span>{{ person.workingPosition|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">ნასამართლეობა წარსულში</span>{{ person.conviction|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">წოდება წარსულში</span>{{ person.rankInPast|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if person.photos -%}
+                                        <div class="tab-pane" id="tab-photos">
+                                            <div class="card card-raised card-carousel">
+                                                <div id="person-photos-carousel-indicator" class="carousel slide" data-ride="carousel" data-interval="3000">
+                                                    <ol class="carousel-indicators">
+                                                        {% for photo in person.photos -%}
+                                                            <li data-target="#person-photos-carousel-indicator"
+                                                                data-slide-to="{{ loop.index0 }}"{{ loop.first ? ' class="active"' : '' }}></li>
+                                                        {% endfor -%}
+                                                    </ol>
+                                                    <div class="carousel-inner">
+                                                        {% for photo in person.photos -%}
+                                                            <div class="carousel-item{{ loop.first ? ' active' : '' }}">
+                                                                <img class="d-block w-100"
+                                                                     src="{{ asset('person/photos/' ~ photo) }}"
+                                                                     alt="{{ person.name }} {{ person.surname }}">
+                                                            </div>
+                                                        {% endfor -%}
+                                                    </div>
+                                                    <a class="carousel-control-prev" href="#person-photos-carousel-indicator" role="button" data-slide="prev">
+                                                        <i class="material-icons">keyboard_arrow_left</i>
+                                                        <span class="sr-only">წინა</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#person-photos-carousel-indicator" role="button" data-slide="next">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span class="sr-only">მომდევნო</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif -%}
+                                    <div class="tab-pane" id="tab-arrest">
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">ბრალდება</span>{{ person.blame|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">მუხლი</span>{{ person.clauses|join(', ')|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">დაპატიმრების თარიღი</span>{{ person.dateOfArrest ? person.dateOfArrest|date('d/m/Y') : 'არ არის მითითებული' }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">ვინ იძიებდა საქმეს</span>{{ person.investigator|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab-convict">
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">სხდომის თარიღი</span>{{ person.sessionDate ? person.sessionDate|date('d/m/Y') : 'არ არის მითითებული' }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">სხდომის მომხსენებელი</span>{{ person.presenter|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">სხდომის მონაწილეები</span>{{ person.sessionParticipants|join(', ')|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">განაჩენი</span>{{ person.verdict|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">განაჩენის თარიღი</span>{{ person.verdictDate ? person.verdictDate|date('d/m/Y') : 'არ არის მითითებული' }}
+                                            </p>
+                                        </div>
+                                        <div class="tim-typo">
+                                            <p>
+                                                <span class="tim-note">გასამართლების ორგანო</span>{{ person.convict|default('არ არის მითითებული') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% if person.rehabilitation or person.notes -%}
+                                        <div class="tab-pane" id="tab-other-information">
+                                            <div class="tim-typo">
+                                                <p>
+                                                    <span class="tim-note">რეაბილიტაცია</span>{{ person.rehabilitation|default('არ არის მითითებული') }}
+                                                </p>
+                                            </div>
+                                            <div class="tim-typo">
+                                                <p>
+                                                    <span class="tim-note">შენიშვნა</span>{{ person.notes|default('არ არის მითითებული') }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -33,7 +33,7 @@ class PersonRepository extends ServiceEntityRepository
     public function getRandomBlame()
     {
         return $this->createQueryBuilder('p')
-            ->select('p.blame', 'p.verdict')
+            ->select('p.id', 'p.blame', 'p.verdict')
             ->andWhere('p.blame IS NOT NULL')
             ->andWhere('LENGTH(p.blame) BETWEEN 128 and 512')
             ->andWhere('p.verdict IS NOT NULL')
