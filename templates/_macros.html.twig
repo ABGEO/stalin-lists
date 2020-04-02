@@ -1,0 +1,15 @@
+{% macro input(input, wrapper_classes = 'col-lg-3 col-sm-4') %}
+    {% if wrapper_classes -%}
+        <div class="{{ wrapper_classes }}">
+    {% endif -%}
+        <div class="form-group">
+            {{ form_label(input) }}
+            {{ form_widget(input) }}
+            {% if input.vars.help is defined -%}
+                <span class="bmd-help">{{ input.vars.help }}</span>
+            {% endif -%}
+        </div>
+    {% if wrapper_classes -%}
+        </div>
+    {% endif -%}
+{% endmacro %}

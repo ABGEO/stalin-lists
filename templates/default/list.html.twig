@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "_macros.html.twig" as macros %}
 
 {% block title %}რეპრესირებულთა სია{% endblock %}
 
@@ -25,46 +26,46 @@
                             <div class="col-12">
                                 <h4>პირადი მონაცემები</h4>
                                 <div class="input-group mb-3">
-                                    {{ _self.input(searchForm.surname) }}
-                                    {{ _self.input(searchForm.name) }}
-                                    {{ _self.input(searchForm.patronymic) }}
-                                    {{ _self.input(searchForm.birth_date) }}
-                                    {{ _self.input(searchForm.place_of_birth) }}
-                                    {{ _self.input(searchForm.dwelling_place) }}
-                                    {{ _self.input(searchForm.education) }}
-                                    {{ _self.input(searchForm.education_additional) }}
-                                    {{ _self.input(searchForm.nationality) }}
-                                    {{ _self.input(searchForm.social_status) }}
-                                    {{ _self.input(searchForm.marital_status) }}
-                                    {{ _self.input(searchForm.partying) }}
-                                    {{ _self.input(searchForm.working_position) }}
-                                    {{ _self.input(searchForm.conviction) }}
-                                    {{ _self.input(searchForm.rank_in_past) }}
+                                    {{ macros.input(searchForm.surname) }}
+                                    {{ macros.input(searchForm.name) }}
+                                    {{ macros.input(searchForm.patronymic) }}
+                                    {{ macros.input(searchForm.birth_date) }}
+                                    {{ macros.input(searchForm.place_of_birth) }}
+                                    {{ macros.input(searchForm.dwelling_place) }}
+                                    {{ macros.input(searchForm.education) }}
+                                    {{ macros.input(searchForm.education_additional) }}
+                                    {{ macros.input(searchForm.nationality) }}
+                                    {{ macros.input(searchForm.social_status) }}
+                                    {{ macros.input(searchForm.marital_status) }}
+                                    {{ macros.input(searchForm.partying) }}
+                                    {{ macros.input(searchForm.working_position) }}
+                                    {{ macros.input(searchForm.conviction) }}
+                                    {{ macros.input(searchForm.rank_in_past) }}
                                 </div>
 
                                 <h4>დაპატიმრება</h4>
                                 <div class="input-group mb-3">
-                                    {{ _self.input(searchForm.list) }}
-                                    {{ _self.input(searchForm.blame) }}
-                                    {{ _self.input(searchForm.clauses) }}
-                                    {{ _self.input(searchForm.date_of_arrest) }}
-                                    {{ _self.input(searchForm.investigator) }}
+                                    {{ macros.input(searchForm.list) }}
+                                    {{ macros.input(searchForm.blame) }}
+                                    {{ macros.input(searchForm.clauses) }}
+                                    {{ macros.input(searchForm.date_of_arrest) }}
+                                    {{ macros.input(searchForm.investigator) }}
                                 </div>
 
                                 <h4>გასამართლება</h4>
                                 <div class="input-group mb-3">
-                                    {{ _self.input(searchForm.session_date) }}
-                                    {{ _self.input(searchForm.presenter) }}
-                                    {{ _self.input(searchForm.session_participants) }}
-                                    {{ _self.input(searchForm.verdict) }}
-                                    {{ _self.input(searchForm.verdict_date) }}
-                                    {{ _self.input(searchForm.convict) }}
+                                    {{ macros.input(searchForm.session_date) }}
+                                    {{ macros.input(searchForm.presenter) }}
+                                    {{ macros.input(searchForm.session_participants) }}
+                                    {{ macros.input(searchForm.verdict) }}
+                                    {{ macros.input(searchForm.verdict_date) }}
+                                    {{ macros.input(searchForm.convict) }}
                                 </div>
 
                                 <h4>სხვა მონაცემები</h4>
                                 <div class="input-group mb-3">
-                                    {{ _self.input(searchForm.rehabilitation) }}
-                                    {{ _self.input(searchForm.notes) }}
+                                    {{ macros.input(searchForm.rehabilitation) }}
+                                    {{ macros.input(searchForm.notes) }}
                                 </div>
                             </div>
 
@@ -162,15 +163,3 @@
         });
     </script>
 {% endblock -%}
-
-{% macro input(input, wrapper_classes = 'col-lg-3 col-sm-4') %}
-    <div class="{{ wrapper_classes }}">
-        <div class="form-group">
-            {{ form_label(input) }}
-            {{ form_widget(input) }}
-            {% if input.vars.help is defined -%}
-                <span class="bmd-help">{{ input.vars.help }}</span>
-            {% endif -%}
-        </div>
-    </div>
-{% endmacro %}

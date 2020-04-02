@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Person;
+use App\Form\FeedbackFormType;
 use App\Form\PersonSearchFormType;
 use App\Repository\PersonRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -63,5 +64,45 @@ class DefaultController extends AbstractController
     public function about()
     {
         return $this->render('default/about.html.twig');
+    }
+
+    /**
+     * @Route("/feedback", name="feedback")
+     */
+    public function feedback(Request $request, \Swift_Mailer $mailer)
+    {
+        $formData = null;
+        $message = null;
+        $feedbackForm = $this->createForm(FeedbackFormType::class);
+        $feedbackForm->handleRequest($request);
+
+        if ($feedbackForm->isSubmitted() && $feedbackForm->isValid()) {
+            $formData = $feedbackForm->getData();
+
+            $message = (new \Swift_Message($formData['subject']))
+                ->setFrom(getenv('SITE_EMAIL'))
+                ->setTo(getenv('CONTACT_EMAIL'))
+                ->setBody(
+                    $this->renderView(
+                        'email/feedback.html.twig',
+                        [
+                            'name' => $formData['name'],
+                            'email' => $formData['email'],
+                            'message' => $formData['message'],
+                        ]
+                    ),
+                    'text/html'
+                );
+
+            if ($mailer->send($message)) {
+                $this->addFlash('success', 'შეტყობინება წარმატებით გაიგზავნა!');
+            } else {
+                $this->addFlash('danger', 'შეტყობინება გაგზავნისასა დაფიქსირდა შეცდომა. სცადეთ მოგვიანებით!');
+            }
+
+            return $this->redirectToRoute('feedback');
+        }
+
+        return $this->render('default/feedback.html.twig', ['feedbackForm' => $feedbackForm->createView(),]);
     }
 }
