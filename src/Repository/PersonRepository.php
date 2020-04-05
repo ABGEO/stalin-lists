@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the ABGEO/StalinList project.
+ *
+ * (c) Temuri Takalandze <me@abgeo.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Person;
@@ -10,6 +19,11 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
 /**
+ * Class PersonRepository.
+ *
+ * @category Repository
+ * @package  App
+ *
  * @method Person|null find($id, $lockMode = null, $lockVersion = null)
  * @method Person|null findOneBy(array $criteria, array $orderBy = null)
  * @method Person[]    findAll()

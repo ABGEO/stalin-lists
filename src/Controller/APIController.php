@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the ABGEO/StalinList project.
+ *
+ * (c) Temuri Takalandze <me@abgeo.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Repository\PersonRepository;
@@ -8,14 +17,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
+ * Class APIController.
+ *
+ * @category Controller
+ * @package  App
+ *
  * @Route("/api", defaults={"_format" = "json"})
  */
 class APIController extends AbstractController
 {
     /**
+     * Get documentation.
+     *
      * @Route("/", name="api_documentation", methods={"GET"})
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function documentation()
+    public function getDocumentation()
     {
         $routes = [
             'documentation' => [
@@ -34,7 +52,16 @@ class APIController extends AbstractController
     }
 
     /**
+     * Get random blame.
+     *
      * @Route("/random-blame", name="api_random_blame", methods={"GET"})
+     *
+     * @param PersonRepository $personRepository Person Repository.
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getRandomBlame(PersonRepository $personRepository)
     {

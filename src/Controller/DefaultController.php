@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the ABGEO/StalinList project.
+ *
+ * (c) Temuri Takalandze <me@abgeo.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Person;
@@ -12,10 +21,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class DefaultController.
+ *
+ * @category Controller
+ * @package  App
+ */
 class DefaultController extends AbstractController
 {
     /**
+     * Render homepage.
+     *
      * @Route("/", name="homepage")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index()
     {
@@ -23,7 +42,16 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Render persons list with pagination and filters.
+     *
      * @Route("/list/{page}", name="list", defaults={"page": "1"}, requirements={"page": "\d+"})
+     *
+     * @param int $page                          Current page number.
+     * @param PersonRepository $personRepository Person Repository.
+     * @param PaginatorInterface $paginator      Paginator.
+     * @param Request $request                   Current request object.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function list(int $page, PersonRepository $personRepository, PaginatorInterface $paginator, Request $request)
     {
@@ -50,8 +78,14 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Render single Dosie page.
+     *
      * @Route("/dosie/{id}", name="dosie")
      * @ParamConverter("person", class="App\Entity\Person")
+     *
+     * @param Person $person Single person.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function dosie(Person $person)
     {
@@ -59,7 +93,11 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Render About page.
+     *
      * @Route("/about", name="about")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function about()
     {
@@ -67,7 +105,14 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Render Feedback page and handle form.
+     *
      * @Route("/feedback", name="feedback")
+     *
+     * @param Request $request      Current request object.
+     * @param \Swift_Mailer $mailer SwiftMailer instance.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function feedback(Request $request, \Swift_Mailer $mailer)
     {

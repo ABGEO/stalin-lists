@@ -2,6 +2,15 @@
 
 namespace App\Form;
 
+/*
+ * This file is part of the ABGEO/StalinList project.
+ *
+ * (c) Temuri Takalandze <me@abgeo.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use App\Entity\Clause;
 use App\Entity\ConvictOrganization;
 use App\Entity\CourtRepresentative;
@@ -23,6 +32,12 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class PersonSearchFormType.
+ *
+ * @category Form
+ * @package  App
+ */
 class PersonSearchFormType extends AbstractType
 {
     /**
@@ -35,12 +50,20 @@ class PersonSearchFormType extends AbstractType
      */
     private $entityManager;
 
+    /**
+     * PersonSearchFormType constructor.
+     * @param RequestStack $requestStack Request stack.
+     * @param EntityManagerInterface $em Entity manager.
+     */
     public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->entityManager = $em;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $requestData = $this->request->get('person_search_form');
@@ -438,6 +461,9 @@ class PersonSearchFormType extends AbstractType
             );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         $sort = static function (ChoiceView $a, ChoiceView $b) {
@@ -454,6 +480,9 @@ class PersonSearchFormType extends AbstractType
         usort($view->children['clauses']->vars['choices'], $sort);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(

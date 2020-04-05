@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the ABGEO/StalinList project.
+ *
+ * (c) Temuri Takalandze <me@abgeo.dev>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,6 +16,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Person.
+ *
+ * @category Entity
+ * @package  App
+ *
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
 class Person
