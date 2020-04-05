@@ -13,17 +13,30 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class APIController extends AbstractController
 {
     /**
-     * @Route("/", name="api_documentation")
+     * @Route("/", name="api_documentation", methods={"GET"})
      */
     public function documentation()
     {
-        return $this->json(['success' => true, 'message' => 'API Documentation will be here']);
+        $routes = [
+            'documentation' => [
+                'path' => '/api',
+                'method' => 'GET',
+                'description' => 'API Documentation (this page).',
+            ],
+            'randomBlame' => [
+                'path' => '/api/random-blame',
+                'method' => 'GET',
+                'description' => 'Get random blame.',
+            ],
+        ];
+
+        return $this->json(['Message' => 'See all available API Routes.' , 'routes' => $routes]);
     }
 
     /**
      * @Route("/random-blame", name="api_random_blame", methods={"GET"})
      */
-    public function randomBlame(PersonRepository $personRepository)
+    public function getRandomBlame(PersonRepository $personRepository)
     {
         $randomBlame = $personRepository->getRandomBlame();
         $randomBlame['dosieUrl'] = $this->generateUrl(
