@@ -992,3 +992,31 @@
     transform: scale(1.0);
   }
 }
+
+@media (max-width: 1000px) {
+  .tim-typo .tim-note {
+    width: 100px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .tim-typo {
+    padding-left: 0 !important;
+  }
+
+  .tim-typo .tim-note {
+    width: 260px !important;
+    position: unset !important;
+    margin-left: 0 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .tim-typo p {
+    display: block !important;
+    position: unset !important;
+  }
+
+  .dosie-nav {
+    margin-bottom: 20px;
+  }
+}
