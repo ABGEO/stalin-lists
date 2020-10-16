@@ -5,14 +5,13 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="description" content="{{ block('description') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>{{ block('title') }} | სტალინის სიები</title>
+    <title>{{ block('title') }} | სტალინური სიები</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
 
-    <meta property="og:title" content="{{ block('title') }} | სტალინის სიები" />
-    <meta property="og:site_name" content="სტალინის სიები" />
+    <meta property="og:title" content="{{ block('title') }} | სტალინური სიები" />
+    <meta property="og:site_name" content="სტალინური სიები" />
     <meta property="og:description" content="{{ block('description') }}" />
     <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
     <meta property="og:url" content="{{ app.request.uri }}" />
@@ -62,7 +61,7 @@
      id="sectionsNav">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="{{ path('homepage') }}">სტალინის სიები</a>
+            <a class="navbar-brand" href="{{ path('homepage') }}">სტალინური სიები</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="sr-only">ნავიგაცია</span>
@@ -108,15 +107,14 @@
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
                     <div class="brand">
-                        <h1>სტალინის სიები</h1>
+                        <h1>სტალინური სიები</h1>
                         <h3>
                             <b>1937</b>-<b>1938</b> წლებში საქართველოს სსრ-ში სულ <b>29.051</b> ადამიანი იქნა
-                            რეპრესირებული,
-                            მათ შორის <b>14.372</b> დახვრეტილი, <b>14.679</b> - გადასახლებული.
+                            რეპრესირებული, მათ შორის <b>14.372</b> დახვრეტილი, <b>14.679</b> - გადასახლებული.
                         </h3>
                         <h4>
-                            ჩვენს ბაზაში არის <b>1937</b>-<b>1938</b> წლებში ე.წ. <b>„სტალინური სიების“</b>
-                            საფუძველზე რეპრესირებულები - <b>3.616</b> პიროვნების მონაცემი.
+                            ჩვენი ბაზა შეიცავს <b>1937</b>-<b>1938</b> წლებში ე.წ. <b>"სტალინური სიების"</b>
+                            საფუძველზე რეპრესირებული <b>3.616</b> პიროვნების მონაცემს.
                         </h4>
                         <br>
                         <a href="{{ path('list') }}" class="btn btn-danger btn-raised btn-lg">
@@ -145,7 +143,7 @@
                     <a href="{{ path('api_documentation') }}">API</a>
                 </li>
                 <li>
-                    <a rel="tooltip" data-placement="bottom" href="https://github.com/ABGEO07/stalin-lists"
+                    <a rel="tooltip" data-placement="bottom" href="https://github.com/ABGEO/stalin-lists"
                        target="_blank" data-original-title="კონტრიბუცია GitHub-ზე">
                         <i class="fa fa-github"></i>
                     </a>
