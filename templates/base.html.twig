@@ -1,10 +1,11 @@
 {% set currentRoute = app.request.get('_route') %}
-
+{% set social_image_default = app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/img/background.jpg') %}
+{% set description_default = '1937-1938 წლებში საქართველოს სსრ-ში სულ 29.051 ადამიანი იქნა რეპრესირებული, მათ შორის 14.372 დახვრეტილი, 14.679 - გადასახლებული. ჩვენი ბაზა შეიცავს 1937-1938 წლებში ე.წ. "სტალინური სიების" საფუძველზე რეპრესირებული 3.616 პიროვნების მონაცემს.' %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
     <meta charset="utf-8"/>
-    <meta name="description" content="{{ block('description') }}">
+    <meta name="description" content="{{ (block('description') is defined ? block('description') : '')|trim|default(description_default) }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>{{ block('title') }} | სტალინური სიები</title>
@@ -12,11 +13,18 @@
 
     <meta property="og:title" content="{{ block('title') }} | სტალინური სიები" />
     <meta property="og:site_name" content="სტალინური სიები" />
-    <meta property="og:description" content="{{ block('description') }}" />
-    <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+    <meta property="og:description" content="{{ (block('description') is defined ? block('description') : '')|trim|default(description_default) }}" />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ app.request.uri }}" />
-    <meta property="og:image" content="{% block og_image %}{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('assets/img/background.jpg') }}{% endblock %}" />
+    <meta property="og:image" content="{{ (block('social_image') is defined ? block('social_image') : '')|trim|default(social_image_default) }}" />
+
     <meta property="fb:app_id" content="358978042020665" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@ABGEO07">
+    <meta name="twitter:title" content="{{ block('title') }} | სტალინური სიები">
+    <meta name="twitter:description" content="{{ (block('description') is defined ? block('description') : '')|trim|default(description_default) }}">
+    <meta name="twitter:image" content="{{ (block('social_image') is defined ? block('social_image') : '')|trim|default(social_image_default) }}">
 
     {% block stylesheets -%}
         <link rel="stylesheet" type="text/css"

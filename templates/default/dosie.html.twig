@@ -3,8 +3,13 @@
 {% block title %}{{ person.surname }} {{ person.name }} {{ person.patronymic }}{% endblock %}
 
 {% block description %}
-    ამ გვერდზე თქვენ შეგიძლიათ იხილოთ "სტალუნის სიების" საფუძველზე რეპრესირებული
-    {{ person.surname }} {{ person.name }} {{ person.patronymic }}ს დოსიე.
+    ამ გვერდზე თქვენ შეგიძლიათ იხილოთ "სტალუნის სიების" საფუძველზე რეპრესირებული {{ person.surname }} {{ person.name }} {{ person.patronymic }}ს დოსიე.
+{% endblock %}
+
+{% block social_image %}
+    {% if person.photos -%}
+        {{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('person/photos/' ~ person.photos[0]) }}
+    {% endif -%}
 {% endblock %}
 
 {% block body %}
