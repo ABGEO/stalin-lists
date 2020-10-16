@@ -1,0 +1,24 @@
+static:
+    homepage:
+        route: homepage
+        changefreq: always
+        priority: 1.0
+    list:
+        route: list
+        changefreq: never
+        priority: 1.0
+    about:
+        route: about
+        changefreq: never
+        priority: 1.0
+    feedback:
+        route: feedback
+        changefreq: never
+        priority: 1.0
+
+dynamic:
+    dosie:
+        route: dosie
+        class: App\Entity\Person
+        changefreq: never
+        priority: 1.0
