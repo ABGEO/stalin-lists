@@ -133,13 +133,13 @@
                             <tbody>
                             {% for person in people -%}
                                 <tr>
-                                    <td>{{ person.surname }}</td>
-                                    <td>{{ person.name }}</td>
+                                    <td><a href="{{ path('dosie', { 'id': person.id }) }}">{{ person.surname }}</a></td>
+                                    <td><a href="{{ path('dosie', { 'id': person.id }) }}">{{ person.name }}</a></td>
                                     <td>{{ person.patronymic }}</td>
                                     <td>{{ person.birthDate|default('არ არის მითითებული') }}</td>
                                     <td>{{ person.nationality }}</td>
                                     <td>{{ person.dateOfArrest ? person.dateOfArrest|date('d/m/Y') : 'არ არის მითითებული' }}</td>
-                                    <td><a href="{{ path('dosie', { 'id': person.id }) }}">დოსიე</a></td>
+                                    <td><a class="btn btn-primary" href="{{ path('dosie', { 'id': person.id }) }}">დოსიე</a></td>
                                 </tr>
                             {% endfor -%}
                             </tbody>
